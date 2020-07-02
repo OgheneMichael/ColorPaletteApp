@@ -4,8 +4,9 @@ import PalettePreview from '../components/PalettePreview';
 
 const Home = ({ navigation }) => {
   const [colorPalettes, setColorPalettes] = useState();
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const handleFetchColorPlattes = useCallback(async () => {
+  const fetchColorPlattes = useCallback(async () => {
     const res = await fetch(
       'https://color-palette-api.kadikraman.now.sh/palettes',
     );
@@ -16,7 +17,13 @@ const Home = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    handleFetchColorPlattes();
+    fetchColorPlattes();
+  }, []);
+
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true);
+    await fetchColorPlattes();
+    setIsRefreshing(false);
   }, []);
 
   return (
@@ -32,6 +39,8 @@ const Home = ({ navigation }) => {
           colorPalette={item}
         />
       )}
+      refreshing={isRefreshing}
+      onRefresh={handleRefresh}
     />
   );
 };
