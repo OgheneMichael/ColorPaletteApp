@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
-function ColorBox({colorName, hexCode}) {
+function ColorBox({ colorName, hexCode }) {
   const boxColor = {
     backgroundColor: hexCode,
   };
@@ -14,7 +14,7 @@ function ColorBox({colorName, hexCode}) {
   return (
     <View style={[styles.box, boxColor]}>
       <Text style={[styles.boxText, textColor]}>
-        {`${colorName} ${hexCode}`}
+        {`${colorName} ${colorName && hexCode}`}
       </Text>
     </View>
   );
@@ -27,6 +27,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
+    elevation: 2,
   },
   boxText: {
     fontWeight: '600',
